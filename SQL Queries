@@ -1,0 +1,73 @@
+SELECT first_name,last_name,email FROM customer
+SELECT DISTINCT(release_year) FROM film
+SELECT DISTINCT(rental_rate) FROM film
+SELECT DISTINCT(rating) FROM film
+SELECT COUNT(*) FROM payment
+SELECT COUNT(DISTINCT(amount)) FROM payment
+SELECT first_name,last_name FROM customer
+WHERE first_name='Jared'
+SELECT * FROM film
+WHERE rental_rate>4 AND replacement_cost>=19.99
+SELECT COUNT(*) FROM film
+WHERE rental_rate>4 AND replacement_cost>=19.99 AND rating='R'
+SELECT email FROM customer
+WHERE first_name='Nancy' AND last_name='Thomas'
+SELECT description FROM film
+WHERE title='Outlaw Hanky'
+SELECT phone FROM address
+WHERE address='259 Ipoh Drive'
+SELECT store_id,customer_id,first_name,last_name from customer
+ORDER BY store_id,customer_id
+SELECT * FROM payment
+ORDER BY payment_date DESC
+LIMIT 5
+SELECT customer_id FROM payment
+order by payment_date 
+LIMIT 10
+SELECT title FROM film
+ORDER BY length
+SELECT COUNT(title) FROM film
+WHERE length<=50
+SELECT MIN(replacement_cost),max(replacement_cost) FROM film
+SELECT customer_id,SUM(amount) FROM payment
+GROUP BY customer_id
+ORDER BY SUM(amount) DESC
+LIMIT 10
+SELECT staff_id,COUNT(payment_id) FROM payment
+GROUP BY staff_id
+ORDER BY COUNT(payment_id) DESC
+SELECT rating,ROUND(AVG(replacement_cost),3) FROM film
+GROUP BY rating
+SELECT customer_id,SUM(amount) FROM payment
+GROUP  BY customer_id
+ORDER BY SUM(amount) DESC
+LIMIT 5
+
+#JOIN QUERIES
+
+
+SELECT * from payment
+INNER JOIN customer
+ON payment.customer_id=customer.customer_id
+
+SELECT * from customer
+FULL OUTER JOIN payment
+ON payment.customer_id=customer.customer_id
+WHERE payment.customer_id is NULL
+
+SELECT film.film_id,title,inventory_id FROM film
+LEFT OUTER JOIN inventory
+ON inventory.film_id=film.film_id
+
+SELECT email FROM customer
+INNER JOIN address
+ON customer.address_id=address.address_id
+WHERE district='California'
+
+SELECT title FROM film_actor
+INNER JOIN actor
+ON film_actor.actor_id=actor.actor_id
+INNER join film
+ON film.film_id=film_actor.film_id
+WHERE first_name='Nick' AND last_name='Wahlberg'
+LIMIT 5;
